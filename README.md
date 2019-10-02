@@ -5,8 +5,7 @@ Creates a pipeline that builds a container, pushes it to ECR and deploys the con
 
 ```hcl
 module "ecs_pipeline" {
-  source  = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.0"
-  version = "~> 1.0"
+  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.0"
 
   name               = app-name
   ecr_name           = ecr-repo-name
