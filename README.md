@@ -1,11 +1,11 @@
 ## aws-codepipeline-ecs
 Creates a pipeline that builds a container, pushes it to ECR and deploys the container to an ECS service
 
-## Example
+## Usage
 
 ```hcl
 module "ecs_pipeline" {
-  source  = "github.com/globeandmail/aws-codepipeline-ecs"
+  source  = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.0"
   version = "~> 1.0"
 
   name               = app-name
