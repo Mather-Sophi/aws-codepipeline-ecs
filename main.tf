@@ -7,7 +7,7 @@ locals {
 }
 
 module "codebuild_project" {
-  source = "github.com/globeandmail/aws-codebuild-project?ref=1.0"
+  source = "github.com/globeandmail/aws-codebuild-project?ref=1.2"
 
   name        = var.name
   deploy_type = "ecs"
@@ -85,6 +85,13 @@ data "aws_iam_policy_document" "codepipeline_ecs" {
       "arn:aws:ecs:${local.aws_region}:${local.account_id}:service/${var.ecs_cluster_name}/${var.ecs_service_name}"
     ]
   }
+
+  statement {
+    actions   = ["iam:PassRole"]
+    resources = ["arn:aws:iam::${local.account_id}:role/ecs/*"]
+  }
+
+
 }
 
 resource "aws_iam_role_policy" "codepipeline_ecs" {
