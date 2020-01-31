@@ -76,7 +76,7 @@ data "aws_iam_policy_document" "codepipeline_ecs" {
       "ecs:ListTasks",
       "ecs:RegisterTaskDefinition"
     ]
-    resources = ["arn:aws:ecs:${local.aws_region}:${local.account_id}:*"]
+    resources = ["*"]
   }
 
   statement {
@@ -88,9 +88,8 @@ data "aws_iam_policy_document" "codepipeline_ecs" {
 
   statement {
     actions   = ["iam:PassRole"]
-    resources = ["arn:aws:iam::${local.account_id}:role/ecs/*"]
+    resources = ["arn:aws:iam::${local.account_id}:role/ecsTaskExecutionRole"]
   }
-
 
 }
 
