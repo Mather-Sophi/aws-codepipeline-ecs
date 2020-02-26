@@ -2,8 +2,9 @@ data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
 locals {
-  aws_region = data.aws_region.current.name
-  account_id = data.aws_caller_identity.current.account_id
+  aws_region          = data.aws_region.current.name
+  account_id          = data.aws_caller_identity.current.account_id
+  task_execution_role = var.task_execution_role == "ecsTaskExecutionRole" ? "ecsTaskExecutionRole" : var.task_execution_role
 }
 
 module "codebuild_project" {
@@ -88,9 +89,8 @@ data "aws_iam_policy_document" "codepipeline_ecs" {
 
   statement {
     actions   = ["iam:PassRole"]
-    resources = ["arn:aws:iam::${local.account_id}:role/ecsTaskExecutionRole"]
+    resources = ["arn:aws:iam::${local.account_id}:role/${local.task_execution_role}"]
   }
-
 }
 
 resource "aws_iam_role_policy" "codepipeline_ecs" {

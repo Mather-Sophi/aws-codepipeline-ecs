@@ -51,6 +51,12 @@ variable "codebuild_image" {
   default     = null
 }
 
+variable "task_execution_role" {
+  type        = string
+  description = "The name of the task execution role"
+  default     = "ecsTaskExecutionRole"
+}
+
 variable "tags" {
   type        = map
   description = "A mapping of tags to assign to the resource"

@@ -5,14 +5,14 @@ Creates a pipeline that builds a container, pushes it to ECR and deploys the con
 
 ```hcl
 module "ecs_pipeline" {
-  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.2"
+  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.3"
 
-  name               = app-name
-  ecr_name           = ecr-repo-name
-  ecs_cluster_name   = cluster-name
-  ecs_service_name   = service-name
-  github_repo_owner  = github-account-name
-  github_repo_name   = github-repo-name
+  name               = "app-name"
+  ecr_name           = "ecr-repo-name"
+  ecs_cluster_name   = "cluster-name"
+  ecs_service_name   = "service-name"
+  github_repo_owner  = "github-account-name"
+  github_repo_name   = "github-repo-name"
   github_oauth_token = data.aws_ssm_parameter.github_token.value
   tags = {
     Environment = var.environment
@@ -28,8 +28,9 @@ module "ecs_pipeline" {
 | ecr\_name | The name of the ECR repo | string | n/a | yes |
 | ecs\_cluster\_name | The name of the ECS cluster | string | n/a | yes |
 | ecs\_service\_name | The name of the ECS service | string | n/a | yes |
+| ecs\_service\_name | The name of the ECS service | string | n/a | yes |
 | github\_repo\_owner | The owner of the GitHub repo | string | n/a | yes |
-| github\_repo\_name | The name of the GitHub repository | string | n/a | yes |
+| task\_execution\_role | The name of the task execution role | string | `"ecsTaskExecutionRole"` | no |
 | github\_oauth\_token | GitHub oauth token | string | n/a | yes |
 | codebuild\_image | The codebuild image to use | string | `"null"` | no |
 | ecs\_artifact\_filename | The name of the ECS deploy artifact | string | `"null"` | no |
