@@ -1,11 +1,14 @@
 ## aws-codepipeline-ecs
 Creates a pipeline that builds a container, pushes it to ECR and deploys the container to an ECS service
 
+## v1.5 Note
+The account that owns the guthub token must have admin access on the repo in order to generate a github webhook 
+
 ## Usage
 
 ```hcl
 module "ecs_pipeline" {
-  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.4"
+  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.5"
 
   name               = "app-name"
   ecr_name           = "ecr-repo-name"
