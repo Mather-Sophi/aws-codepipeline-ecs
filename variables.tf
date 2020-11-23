@@ -57,6 +57,12 @@ variable "task_execution_role" {
   default     = "ecsTaskExecutionRole"
 }
 
+variable "use_docker_credentials" {
+  type        = bool
+  description = "(Optional) Use dockerhub credentals stored in parameter store"
+  default     = false
+}
+
 variable "tags" {
   type        = map
   description = "A mapping of tags to assign to the resource"

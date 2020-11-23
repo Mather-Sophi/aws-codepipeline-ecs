@@ -13,12 +13,13 @@ locals {
 }
 
 module "codebuild_project" {
-  source = "github.com/globeandmail/aws-codebuild-project?ref=1.3"
+  source = "github.com/globeandmail/aws-codebuild-project?ref=1.4"
 
-  name        = var.name
-  deploy_type = "ecs"
-  ecr_name    = var.ecr_name
-  tags        = var.tags
+  name                   = var.name
+  deploy_type            = "ecs"
+  ecr_name               = var.ecr_name
+  use_docker_credentials = var.use_docker_credentials
+  tags                   = var.tags
 }
 
 data "aws_iam_policy_document" "codepipeline_assume" {
@@ -124,10 +125,10 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["code"]
 
       configuration = {
-        Owner      = var.github_repo_owner
-        Repo       = var.github_repo_name
-        Branch     = var.github_branch_name
-        OAuthToken = var.github_oauth_token
+        Owner                = var.github_repo_owner
+        Repo                 = var.github_repo_name
+        Branch               = var.github_branch_name
+        OAuthToken           = var.github_oauth_token
         PollForSourceChanges = "false"
       }
     }
@@ -195,7 +196,7 @@ resource "github_repository_webhook" "aws_codepipeline" {
   configuration {
     url          = aws_codepipeline_webhook.github.url
     content_type = "json"
-    secret = var.github_oauth_token
+    secret       = var.github_oauth_token
   }
 
   events = ["push"]
