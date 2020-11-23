@@ -4,11 +4,25 @@ Creates a pipeline that builds a container, pushes it to ECR and deploys the con
 ## v1.6 Note
 The account that owns the guthub token must have admin access on the repo in order to generate a github webhook 
 
+## v1.7 Note
+If `use_docker_credentials` is set to `true`, the environment variables `DOCKERHUB_USER` and `DOCKERHUB_PASS` are exposed via codebild
+
+You can add these 2 lines to the beginning of your `build` phase commands in `buildspec.yml` to login to Dockerhub
+
+```yml
+  build:
+    commands:
+      - echo "Logging into Dockerhub..."
+      - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS}
+      ...
+      ...
+```
+
 ## Usage
 
 ```hcl
 module "ecs_pipeline" {
-  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.6"
+  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.7"
 
   name               = "app-name"
   ecr_name           = "ecr-repo-name"
@@ -38,6 +52,7 @@ module "ecs_pipeline" {
 | codebuild\_image | The codebuild image to use | string | `"null"` | no |
 | ecs\_artifact\_filename | The name of the ECS deploy artifact | string | `"null"` | no |
 | github\_branch\_name | The git branch name to use for the codebuild project | string | `"master"` | no |
+| use\_docker\_credentials | \(Optional\) Use dockerhub credentals stored in parameter store | bool | false | no |
 | tags | A mapping of tags to assign to the resource | map | `{}` | no |
 
 ## Outputs
