@@ -51,6 +51,12 @@ variable "codebuild_image" {
   default     = null
 }
 
+variable "build_compute_type" {
+  type        = string
+  description = "(Optional) build environment compute type"
+  default     = null
+}
+
 variable "task_execution_role" {
   type        = string
   description = "The name of the task execution role"
