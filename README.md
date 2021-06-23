@@ -50,6 +50,7 @@ module "ecs_pipeline" {
 | task\_execution\_role | The name of the task execution role | string | `"ecsTaskExecutionRole"` | no |
 | github\_oauth\_token | GitHub oauth token | string | n/a | yes |
 | codebuild\_image | The codebuild image to use | string | `"null"` | no |
+| buildspec | build spec file other than buildspec.yml | string | `"buildspec.yml"` | no |
 | ecs\_artifact\_filename | The name of the ECS deploy artifact | string | `"null"` | no |
 | github\_branch\_name | The git branch name to use for the codebuild project | string | `"master"` | no |
 | use\_docker\_credentials | \(Optional\) Use dockerhub credentals stored in parameter store | bool | false | no |
