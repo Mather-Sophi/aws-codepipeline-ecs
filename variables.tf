@@ -54,7 +54,7 @@ variable "codebuild_image" {
 variable "build_compute_type" {
   type        = string
   description = "(Optional) build environment compute type"
-  default     = null
+  default     = "BUILD_GENERAL1_SMALL"
 }
 
 variable "task_execution_role" {
