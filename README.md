@@ -22,7 +22,7 @@ You can add these 2 lines to the beginning of your `build` phase commands in `bu
 
 ```hcl
 module "ecs_pipeline" {
-  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.7"
+  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.8"
 
   name               = "app-name"
   ecr_name           = "ecr-repo-name"
@@ -50,6 +50,7 @@ module "ecs_pipeline" {
 | task\_execution\_role | The name of the task execution role | string | `"ecsTaskExecutionRole"` | no |
 | github\_oauth\_token | GitHub oauth token | string | n/a | yes |
 | codebuild\_image | The codebuild image to use | string | `"null"` | no |
+| build\_compute\_type | Build environment compute type | string | `"null"` | no |
 | buildspec | build spec file other than buildspec.yml | string | `"buildspec.yml"` | no |
 | ecs\_artifact\_filename | The name of the ECS deploy artifact | string | `"null"` | no |
 | github\_branch\_name | The git branch name to use for the codebuild project | string | `"master"` | no |
