@@ -74,3 +74,9 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource"
   default     = {}
 }
+
+variable "buildspec" {
+  type        = string
+  description = "build spec file other than buildspec.yml"
+  default     = "buildspec.yml"
+}

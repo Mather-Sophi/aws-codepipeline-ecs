@@ -20,6 +20,7 @@ module "codebuild_project" {
   ecr_name               = var.ecr_name
   use_docker_credentials = var.use_docker_credentials
   build_compute_type     = var.build_compute_type
+  buildspec              = var.buildspec
   tags                   = var.tags
 }
 
