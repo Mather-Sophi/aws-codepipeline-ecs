@@ -17,12 +17,14 @@ You can add these 2 lines to the beginning of your `build` phase commands in `bu
       ...
       ...
 ```
+## v1.9 Note
+The secrets manager environment variable `REPO_ACCESS_GITHUB_TOKEN_SECRETS_ID` is exposed via codebuild
 
 ## Usage
 
 ```hcl
 module "ecs_pipeline" {
-  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.8"
+  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.9"
 
   name               = "app-name"
   ecr_name           = "ecr-repo-name"
@@ -56,6 +58,8 @@ module "ecs_pipeline" {
 | github\_branch\_name | The git branch name to use for the codebuild project | string | `"master"` | no |
 | use\_docker\_credentials | \(Optional\) Use dockerhub credentals stored in parameter store | bool | false | no |
 | tags | A mapping of tags to assign to the resource | map | `{}` | no |
+| central\_account\_github\_token\_aws\_secret\_arn | \(Required\) The repo access Github token AWS secret ARN in the central AWS account | string | n/a | yes |
+| central\_account\_github\_token\_aws\_kms\_cmk\_arn | \(Required\) The repo access Github token AWS KMS customer managed key ARN in the central AWS account | string | n/a | yes |
 
 ## Outputs
 

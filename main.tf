@@ -13,7 +13,7 @@ locals {
 }
 
 module "codebuild_project" {
-  source = "github.com/globeandmail/aws-codebuild-project?ref=1.4"
+  source = "github.com/globeandmail/aws-codebuild-project?ref=1.9"
 
   name                   = var.name
   deploy_type            = "ecs"
@@ -22,6 +22,8 @@ module "codebuild_project" {
   build_compute_type     = var.build_compute_type
   buildspec              = var.buildspec
   tags                   = var.tags
+  central_account_github_token_aws_secret_arn = var.central_account_github_token_aws_secret_arn
+  central_account_github_token_aws_kms_cmk_arn = var.central_account_github_token_aws_kms_cmk_arn
 }
 
 data "aws_iam_policy_document" "codepipeline_assume" {
