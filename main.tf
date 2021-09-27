@@ -13,7 +13,7 @@ locals {
 }
 
 module "codebuild_project" {
-  source = "github.com/globeandmail/aws-codebuild-project?ref=1.7"
+  source = "github.com/globeandmail/aws-codebuild-project?ref=1.9"
 
   name                   = var.name
   deploy_type            = "ecs"
