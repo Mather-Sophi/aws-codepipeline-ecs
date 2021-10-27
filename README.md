@@ -24,7 +24,7 @@ The secrets manager environment variable `REPO_ACCESS_GITHUB_TOKEN_SECRETS_ID` i
 
 ```hcl
 module "ecs_pipeline" {
-  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.9"
+  source = "github.com/globeandmail/aws-codepipeline-ecs?ref=1.10"
 
   name               = "app-name"
   ecr_name           = "ecr-repo-name"
@@ -60,6 +60,7 @@ module "ecs_pipeline" {
 | tags | A mapping of tags to assign to the resource | map | `{}` | no |
 | central\_account\_github\_token\_aws\_secret\_arn | \(Required\) The repo access Github token AWS secret ARN in the central AWS account | string | n/a | yes |
 | central\_account\_github\_token\_aws\_kms\_cmk\_arn | \(Required\) The repo access Github token AWS KMS customer managed key ARN in the central AWS account | string | n/a | yes |
+| create\_github\_webhook | Create the github webhook that triggers codepipeline | bool | `"true"` | no |
 
 ## Outputs
 
