@@ -15,14 +15,14 @@ locals {
 module "codebuild_project" {
   source = "github.com/globeandmail/aws-codebuild-project?ref=1.7"
 
-  name                   = var.name
-  deploy_type            = "ecs"
-  ecr_name               = var.ecr_name
-  use_docker_credentials = var.use_docker_credentials
-  build_compute_type     = var.build_compute_type
-  buildspec              = var.buildspec
-  tags                   = var.tags
-  central_account_github_token_aws_secret_arn = var.central_account_github_token_aws_secret_arn
+  name                                         = var.name
+  deploy_type                                  = "ecs"
+  ecr_name                                     = var.ecr_name
+  use_docker_credentials                       = var.use_docker_credentials
+  build_compute_type                           = var.build_compute_type
+  buildspec                                    = var.buildspec
+  tags                                         = var.tags
+  central_account_github_token_aws_secret_arn  = var.central_account_github_token_aws_secret_arn
   central_account_github_token_aws_kms_cmk_arn = var.central_account_github_token_aws_kms_cmk_arn
 }
 
@@ -179,6 +179,8 @@ resource "aws_codepipeline" "pipeline" {
 }
 
 resource "aws_codepipeline_webhook" "github" {
+  # Only create the webhook if create_github_webhook is set to true
+  count           = var.create_github_webhook == true ? 1 : 0
   name            = var.name
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
@@ -195,10 +197,11 @@ resource "aws_codepipeline_webhook" "github" {
 }
 
 resource "github_repository_webhook" "aws_codepipeline" {
+  count      = var.create_github_webhook == true ? 1 : 0
   repository = var.github_repo_name
 
   configuration {
-    url          = aws_codepipeline_webhook.github.url
+    url          = aws_codepipeline_webhook.github[0].url
     content_type = "json"
     secret       = var.github_oauth_token
   }
