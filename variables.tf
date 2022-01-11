@@ -80,14 +80,24 @@ variable "buildspec" {
   description = "build spec file other than buildspec.yml"
   default     = "buildspec.yml"
 }
-variable "central_account_github_token_aws_secret_arn" {
-  type        = string
-  description = "(Required) The repo access Github token AWS secret ARN in the central AWS account"
+
+variable "use_repo_access_github_token" {
+  type        = bool
+  description = <<EOT
+                (Optional) Allow the AWS codebuild IAM role read access to the REPO_ACCESS_GITHUB_TOKEN secrets manager secret in the shared service account.
+                Defaults to false.
+                EOT
+  default     = false
 }
 
-variable "central_account_github_token_aws_kms_cmk_arn" {
+variable "svcs_account_github_token_aws_secret_arn" {
   type        = string
-  description = "(Required) The repo access Github token AWS KMS customer managed key ARN in the central AWS account"
+  description = "(Required) The repo access Github token AWS secret ARN in the svcs AWS account"
+}
+
+variable "svcs_account_github_token_aws_kms_cmk_arn" {
+  type        = string
+  description = "(Required) The repo access Github token AWS KMS customer managed key ARN in the svcs AWS account"
 }
 
 variable "create_github_webhook" {
@@ -96,3 +106,8 @@ variable "create_github_webhook" {
   default     = true
 }
 
+variable "s3_block_public_access" {
+  type = bool
+  description = "(Optional) Enable the S3 block public access setting for the artifact bucket."
+  default = false
+}
