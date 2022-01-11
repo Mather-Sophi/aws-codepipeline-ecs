@@ -92,12 +92,22 @@ variable "use_repo_access_github_token" {
 
 variable "svcs_account_github_token_aws_secret_arn" {
   type        = string
-  description = "(Required) The repo access Github token AWS secret ARN in the svcs AWS account"
+  description = <<EOT
+                (Optional) The AWS secret ARN for the repo access Github token.
+                The secret is created in the shared service account.
+                Required if var.use_repo_access_github_token is true.
+                EOT
+  default     = null
 }
 
 variable "svcs_account_github_token_aws_kms_cmk_arn" {
   type        = string
-  description = "(Required) The repo access Github token AWS KMS customer managed key ARN in the svcs AWS account"
+  description = <<EOT
+                (Optional) The us-east-1 region AWS KMS customer managed key ARN for encrypting the repo access Github token AWS secret.
+                The key is created in the shared service account.
+                Required if var.use_repo_access_github_token is true.
+                EOT
+  default     = null
 }
 
 variable "create_github_webhook" {
