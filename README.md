@@ -32,6 +32,9 @@ If `use_repo_access_github_token` is set to `true`, the environment variable `RE
 Usage remains the same as v1.9.
 If `s3_block_public_access` is set to `true`, the block public access setting for the artifact bucket is enabled.
 
+## 2.0 Note
+Uses aws-codebuild-project 2.0 for AWS provider 4.x
+
 ## Usage
 
 ```hcl
