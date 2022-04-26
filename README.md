@@ -5,7 +5,7 @@ Creates a pipeline that builds a container, pushes it to ECR and deploys the con
 The account that owns the guthub token must have admin access on the repo in order to generate a github webhook 
 
 ## v1.7 Note
-If `use_docker_credentials` is set to `true`, the environment variables `DOCKERHUB_USER` and `DOCKERHUB_PASS` are exposed via codebild
+If `use_docker_credentials` is set to `true`, the environment variables `DOCKERHUB_USER` and `DOCKERHUB_PASS` are exposed via codebuild.
 
 You can add these 2 lines to the beginning of your `build` phase commands in `buildspec.yml` to login to Dockerhub
 
@@ -36,11 +36,20 @@ If `s3_block_public_access` is set to `true`, the block public access setting fo
 ## v.2.1 Note
 If `use_sysdig_api_token` is set to `true`, the secrets manager environment variable `SYSDIG_API_TOKEN_SECRETS_ID` is exposed via codebuild.
 
-You can add the 1 line to the beginning of your `build` phase commands in `buildspec.yml` to assign the token's secret value to local variable `SYSDIG_API_TOKEN`.
+You can add these 8 lines to the end of your `build` phase commands in `buildspec.yml` to run Sysdig image security scans.
 ```yml
   build:
     commands:
-      - export SYSDIG_API_TOKEN=${SYSDIG_API_TOKEN_SECRETS_ID}
+      ...
+      ...
+      - echo "Running Sysdig image inline scan..."
+      - docker run --rm -u $(id -u) -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd)/reports:/staging/reports quay.io/sysdig/secure-inline-scan:2 -s https://us2.app.sysdig.com -k ${SYSDIG_API_TOKEN_SECRETS_ID} --storage-type docker-daemon --storage-path /var/run/docker.sock -r /staging/reports ${REPOSITORY_URI}:${IMAGE_TAG} || true
+      - echo "Downloading Sysdig Cli Scanner..."
+      - curl -LO "https://download.sysdig.com/scanning/bin/sysdig-cli-scanner/$(curl -L -s https://download.sysdig.com/scanning/sysdig-cli-scanner/latest_version.txt)/linux/amd64/sysdig-cli-scanner"
+      - echo "Adding executable permission to sysdig-cli-scanner binary..."
+      - chmod +x ./sysdig-cli-scanner
+      - echo "Running Sysdig image cli scan..."
+      - SECURE_API_TOKEN=${SYSDIG_API_TOKEN_SECRETS_ID} ./sysdig-cli-scanner --apiurl https://us2.app.sysdig.com ${REPOSITORY_URI}:${IMAGE_TAG} --policy sysdig_best_practices || true
 ```
 
 ## Usage
