@@ -98,7 +98,7 @@ module "ecs_pipeline" {
 | tags | A mapping of tags to assign to the resource | map | `{}` | no |
 | use\_repo\_access\_github\_token | \(Optional\) Allow the AWS codebuild IAM role read access to the REPO\_ACCESS\_GITHUB\_TOKEN secrets manager secret in the shared service account.<br>Defaults to false. | `bool` | `false` | no |
 | svcs\_account\_github\_token\_aws\_secret\_arn | \(Optional\) The AWS secret ARN for the repo access Github token.<br>The secret is created in the shared service account.<br>Required if var.use\_repo\_access\_github\_token is true. | `string` | `null` | no |
-| svcs\_account\_aws\_kms\_cmk\_arn | \(Optional\)  The us-east-1 region AWS KMS customer managed key ARN for encrypting all AWS secrets.<br>The key is created in the shared service account.<br>Required if var.use\_repo\_access\_github\_token or var.use\_sysdig\_api\_token is true. | `string` | `null` | no |yes |
+| svcs\_account\_aws\_kms\_cmk\_arn | \(Optional\)  The us-east-1 region AWS KMS customer managed key ARN for encrypting all AWS secrets.<br>The key is created in the shared service account.<br>Required if var.use\_repo\_access\_github\_token or var.use\_sysdig\_api\_token is true. | `string` | `null` | no | yes |
 | create\_github\_webhook | Create the github webhook that triggers codepipeline | bool | `"true"` | no |
 | s3\_block\_public\_access | \(Optional\) Enable the S3 block public access setting for the artifact bucket. | `bool` | `false` | no |
 | use\_sysdig\_api\_token | \(Optional\) Allow the AWS codebuild IAM role read access to the SYSDIG\_API\_TOKEN secrets manager secret in the shared service account.<br>Defaults to false. | `bool` | `false` | no |
