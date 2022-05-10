@@ -13,7 +13,7 @@ locals {
 }
 
 module "codebuild_project" {
-  source = "github.com/globeandmail/aws-codebuild-project?ref=AHP-1113" # change to tag 2.0
+  source = "github.com/globeandmail/aws-codebuild-project?ref=2.1"
 
   name                                         = var.name
   deploy_type                                  = "ecs"
